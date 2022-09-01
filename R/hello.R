@@ -45,6 +45,6 @@ read_opf <- function(file_path) {
 return(data_tbl)
 }
 
-file_path <- "~/Desktop/4_position_codes.opf"
-ds <- read_opf(file_path)
-View(ds$position)
+# file_path <- "~/Desktop/4_position_codes.opf"
+# ds <- read_opf(file_path)
+# View(ds$position)

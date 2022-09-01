@@ -32,9 +32,10 @@ read_opf <- function(file_path) {
         separate(offset, into = c("offset_hr","offset_min","offset_sec","offset_msec"), sep = ":", remove = F) %>%
         mutate(across(onset_hr:onset_msec, as.numeric),
                across(offset_hr:offset_msec, as.numeric),
-               onset_duration = duration(hour = onset_hr, minute = onset_min, second = onset_sec) + dmilliseconds(onset_msec),
-               offset_duration = duration(hour = offset_hr, minute = offset_min, second = offset_sec) + dmilliseconds(offset_msec),
-               duration = offset_duration - onset_duration)
+               onset_s = as.numeric(duration(hour = onset_hr, minute = onset_min, second = onset_sec) + dmilliseconds(onset_msec)),
+               offset_s = as.numeric(duration(hour = offset_hr, minute = offset_min, second = offset_sec) + dmilliseconds(offset_msec)),
+               duration_s = offset_s - onset_s) %>%
+        select(-(onset_hr:onset_msec),-(offset_hr:offset_msec))
     }
     return(ds)
   }
@@ -46,7 +47,4 @@ return(data_tbl)
 
 file_path <- "~/Desktop/4_position_codes.opf"
 ds <- read_opf(file_path)
-
-
-test %>%
-
+View(ds$position)

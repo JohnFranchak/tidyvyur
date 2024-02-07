@@ -40,8 +40,8 @@ read_opf <- function(file_path) {
     return(ds)
   }
 
-  data_tbl <- map2(data_raw, arg_names, ~ read_csv(I(.x), col_names = c("onset","offset",.y)) %>% clean_codes)
-
+  data_tbl <- map2(data_raw, arg_names, ~ read_csv(I(.x), col_names = c("onset","offset",.y), show_col_types = FALSE) %>% clean_codes)
+  print(str_glue("Read {file_path} with {length(names(data_tbl))} columns: {str_flatten_comma(names(data_tbl))}"))
 return(data_tbl)
 }
 
